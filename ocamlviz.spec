@@ -12,6 +12,7 @@ BuildRequires:  ocaml-lablgtk2-devel
 Requires:       ocaml-lablgtk2
 BuildRequires:  ocaml-cairo-devel
 Requires:       ocaml-cairo
+BuildRequires:  camlp4
 
 %description
 Ocamlviz gives the ability to instrument an existing code, in real
