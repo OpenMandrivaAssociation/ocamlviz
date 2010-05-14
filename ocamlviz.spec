@@ -7,6 +7,7 @@ Group:          Development/Other
 URL:            http://ocamlviz.forge.ocamlcore.org/
 Source0:        http://ocamlviz.forge.ocamlcore.org/ocamlviz-%{version}.tar.gz
 Source1:        META
+Source2:        ocaml.xpm
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
 BuildRequires:  ocaml-lablgtk2-devel
 Requires:       ocaml-lablgtk2
@@ -40,6 +41,7 @@ Ocamlviz offers two sorts of client output:
 %setup -q -n %{name}
 cp %{SOURCE1} META
 sed -i -e "s:@VERSION@:%{version}:g" META
+cp %{SOURCE2} .
 
 %build
 ./configure
@@ -49,9 +51,11 @@ make
 rm -rf %{buildroot}
 install -d %{buildroot}/`ocamlc -where`/ocamlviz
 install -d %{buildroot}/`ocamlc -where`/ocamlviz/camlp4
+install -d %{buildroot}/%{_datadir}/pixmaps/
 make install prefix=%{buildroot}/usr OCAMLLIB=%{buildroot}/`ocamlc -where`/ocamlviz
 install -m 0644 camlp4/pa_ocamlviz.ml %{buildroot}/`ocamlc -where`/ocamlviz/camlp4/
 install -m 0644 META %{buildroot}/`ocamlc -where`/ocamlviz/
+install -m 0644 ocaml.xpm %{buildroot}/%{_datadir}/pixmaps/
 
 mv doc docs
 mkdir doc
@@ -75,4 +79,5 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/ocamlviz/*.a
 %{_libdir}/ocaml/ocamlviz/camlp4/*
 %{_mandir}/man1/ocamlviz.1*
+%{_datadir}/pixmaps/ocaml.xpm
 
