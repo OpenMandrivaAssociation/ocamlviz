@@ -81,3 +81,16 @@ rm -rf %{buildroot}
 %{_mandir}/man1/ocamlviz.1*
 %{_datadir}/pixmaps/ocaml.xpm
 
+
+
+%changelog
+* Fri May 14 2010 Florent Monnier <blue_prawn@mandriva.org> 1.01-1mdv2011.0
++ Revision: 544829
+- added /usr/share/pixmaps/ocaml.xpm
+
+* Sun Apr 18 2010 Florent Monnier <blue_prawn@mandriva.org> 1.01-1mdv2010.1
++ Revision: 536358
+- BuildRequires: camlp4
+- initial import, the META file comes from the Debian package made by Mehdi Dogguy
+
+
