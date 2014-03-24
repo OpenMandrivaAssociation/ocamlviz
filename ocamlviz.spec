@@ -1,19 +1,22 @@
-Name:           ocamlviz
-Version:        1.01
-Release:        %mkrel 1
-Summary:        Real-time profiling tools for Objective Caml
-License:        LGPL + linking exception
-Group:          Development/Other
-URL:            http://ocamlviz.forge.ocamlcore.org/
-Source0:        http://ocamlviz.forge.ocamlcore.org/ocamlviz-%{version}.tar.gz
-Source1:        META
-Source2:        ocaml.xpm
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}
-BuildRequires:  ocaml-lablgtk2-devel
-Requires:       ocaml-lablgtk2
-BuildRequires:  ocaml-cairo-devel
-Requires:       ocaml-cairo
-BuildRequires:  camlp4
+%define _enable_debug_packages %{nil}
+%define debug_package %{nil}
+
+Summary:	Real-time profiling tools for Objective Caml
+Name:		ocamlviz
+Version:	1.01
+Release:	2
+License:	LGPLv2+
+Group:		Development/Other
+Url:		http://ocamlviz.forge.ocamlcore.org/
+Source0:	http://ocamlviz.forge.ocamlcore.org/ocamlviz-%{version}.tar.gz
+Source1:	META
+Source2:	ocaml.xpm
+BuildRequires:	camlp4
+BuildRequires:	ocaml
+BuildRequires:	ocaml-cairo-devel
+BuildRequires:	ocaml-lablgtk2-devel
+Requires:	ocaml-cairo
+Requires:	ocaml-lablgtk2
 
 %description
 Ocamlviz gives the ability to instrument an existing code, in real
@@ -32,41 +35,12 @@ Here are a few possibilities provided by Ocamlviz:
    buckets, or the filling rate
  * etc
 
-Ocamlviz offers two sorts of client output: 
+Ocamlviz offers two sorts of client output:
  * an ASCII client, the monitoring is displayed in a file
  * a Graphical User Interface, using Lablgtk2, that allows, for
    instance, displaying data in a graph
 
-%prep
-%setup -q -n %{name}
-cp %{SOURCE1} META
-sed -i -e "s:@VERSION@:%{version}:g" META
-cp %{SOURCE2} .
-
-%build
-./configure
-make
-
-%install
-rm -rf %{buildroot}
-install -d %{buildroot}/`ocamlc -where`/ocamlviz
-install -d %{buildroot}/`ocamlc -where`/ocamlviz/camlp4
-install -d %{buildroot}/%{_datadir}/pixmaps/
-make install prefix=%{buildroot}/usr OCAMLLIB=%{buildroot}/`ocamlc -where`/ocamlviz
-install -m 0644 camlp4/pa_ocamlviz.ml %{buildroot}/`ocamlc -where`/ocamlviz/camlp4/
-install -m 0644 META %{buildroot}/`ocamlc -where`/ocamlviz/
-install -m 0644 ocaml.xpm %{buildroot}/%{_datadir}/pixmaps/
-
-mv doc docs
-mkdir doc
-make doc
-mv doc html
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc LICENSE README CHANGELOG.txt
 %doc docs html
 %{_bindir}/ocamlviz-ascii
@@ -81,16 +55,29 @@ rm -rf %{buildroot}
 %{_mandir}/man1/ocamlviz.1*
 %{_datadir}/pixmaps/ocaml.xpm
 
+#----------------------------------------------------------------------------
 
+%prep
+%setup -q -n %{name}
+cp %{SOURCE1} META
+sed -i -e "s:@VERSION@:%{version}:g" META
+cp %{SOURCE2} .
 
-%changelog
-* Fri May 14 2010 Florent Monnier <blue_prawn@mandriva.org> 1.01-1mdv2011.0
-+ Revision: 544829
-- added /usr/share/pixmaps/ocaml.xpm
+%build
+./configure
+make
 
-* Sun Apr 18 2010 Florent Monnier <blue_prawn@mandriva.org> 1.01-1mdv2010.1
-+ Revision: 536358
-- BuildRequires: camlp4
-- initial import, the META file comes from the Debian package made by Mehdi Dogguy
+%install
+install -d %{buildroot}/`ocamlc -where`/ocamlviz
+install -d %{buildroot}/`ocamlc -where`/ocamlviz/camlp4
+install -d %{buildroot}%{_datadir}/pixmaps/
+make install prefix=%{buildroot}%{_prefix} OCAMLLIB=%{buildroot}/`ocamlc -where`/ocamlviz
+install -m 0644 camlp4/pa_ocamlviz.ml %{buildroot}/`ocamlc -where`/ocamlviz/camlp4/
+install -m 0644 META %{buildroot}/`ocamlc -where`/ocamlviz/
+install -m 0644 ocaml.xpm %{buildroot}%{_datadir}/pixmaps/
 
+mv doc docs
+mkdir doc
+make doc
+mv doc html
 
