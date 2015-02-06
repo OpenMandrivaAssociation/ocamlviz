@@ -4,7 +4,7 @@
 Summary:	Real-time profiling tools for Objective Caml
 Name:		ocamlviz
 Version:	1.01
-Release:	2
+Release:	3
 License:	LGPLv2+
 Group:		Development/Other
 Url:		http://ocamlviz.forge.ocamlcore.org/
