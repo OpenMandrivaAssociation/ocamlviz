@@ -11,6 +11,11 @@ Url:		https://ocamlviz.forge.ocamlcore.org/
 Source0:	http://ocamlviz.forge.ocamlcore.org/ocamlviz-%{version}.tar.gz
 Source1:	META
 Source2:	ocaml.xpm
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	camlp4
 BuildRequires:	ocaml
 BuildRequires:	ocaml-cairo-devel
